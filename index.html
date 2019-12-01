@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+<link rel="stylesheet" href="css/bootstrap-theme.min.css" >
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="js/bootstrap.min.js"></script>
+    <title>KidsCarb</title>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+	<a class="navbar-brand" href="index.html">KidsCarb</a>
+	  <a class="navbar-brand" href="#" onclick="return false;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+	  <a class="navbar-brand" href="#" onclick="cambiarTab(4); return false;"><img alt="Brand" src="img/tool.png" width="20px"></a>
+	  <a class="navbar-brand" href="#" onclick="cambiarTab(1); return false;"><img alt="Brand" src="img/carbocalc.png" width="20px"></a>
+	  <!--<a class="navbar-brand" href="#" onclick="cambiarTab(2); return false;"><img alt="Brand" src="img/jeringa.png" width="20px"></a>
+	  <a class="navbar-brand" href="#" onclick="cambiarTab(3); return false;"><img alt="Brand" src="img/book.png" width="20px"></a> -->
+	
+    </div>
+  </div>
+</nav>      
+
+<div style="height:75px">
+&nbsp;
+</div>
+
+<div id="tabHerramientas" style="display:none">
+<div class="container">
+<div style="text-align:center">
+<h3>Configuración</h3>
+<p>¿Cuántos gramos de carbohidratos comes con una (1) unidad de insulina?</p>
+  <div style="text-align:center; margin-top:25px;">
+    <input type="number" class="form-control"  id="carbsInput" placeholder="Cantidad en gramos .." style="width:190px; height:40px; margin:auto; font-size:16px; text-align:center">
+	<br/>
+	<button type="submit" onclick="grabaCarbs();" class="btn btn-primary">Actualizar Configuración</button>
+  </div>
+  
+
+  
+</div>
+</div>
+</div>
+
+<div id="tabCarbs" style="display:none">
+<div class="container">
+<div class="form-group">
+	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Busca Comida .... ">
+	<ul id="myUL" style="display:none">
+	</ul>
+</div>
+<div style="text-align:center" id="avisoInicial">
+<p>No tienes comida seleccionada. Usa el buscador para buscar lo que vas a comer.</p>
+</div>
+<div style="text-align:center">
+<hr>
+<div id="miComida" style="display:none">
+<h3>Voy a Comer</h3>
+<table id="tablaComida" class="table table-bordered table-striped" width="100%">
+  <thead>
+    <tr>
+      <th scope="col" style="width:60px; align:center;"></th>
+      <th scope="col" style="text-align:center;">Producto</th>
+      <th scope="col" style="width:50px; align:center;">Cant.</th>
+      <th scope="col" style="text-align:center;">Porción</th>
+	  <th scope="col" style="width:80px; text-align:center;  align:center;">CHO gr.</th>
+	  <th scope="col" style="width:60px; align:center;"></th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<table  class="table table-bordered">
+<tr>
+<th style="text-align:center;">Carbohidratos totales de comida en gramos</th>
+<th style="text-align:center;">Debes ponerte estas Unidades de Insulina</th>
+</tr>
+<tr style="text-align:center">
+<td style="font-size:52px" id="choCell">0</td>
+<td style="font-size:52px; color:green" id="insulinaCell">0</td>
+</tr>
+</table>
+<!--<button type="submit" onclick="grabarComida();" class="btn btn-primary">Grabar Comida</button>-->
+</div>
+</div>
+</div>
+</div>
+
+<div id="tabHistoria" style="display:none">
+<div class="container">
+historia
+</div>
+</div>
+
+<div id="tabInsulina" style="display:none">
+<div class="container">
+insulina
+</div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="ModalProducto">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title"><span id="modTitulo">Aguacate</span></h2>
+        <button type="button" class="close" data-dismiss="modal" onclick="liberaSearch()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align:center">
+        <p><span id="modDetalle">Un medio (1/2) aguacate (180gr) = 1 porción de 15gr de CHO</span></p>
+		<table align="center"><tr><td style="padding:10px">
+		<img id="modImg" src="" width="150px" style="float:left;"/>		
+		</td><td style="padding:10px">
+		<input class="form-control" disabled value="1" id="example-number-input" style="font-size:32px; width: 100px; height:150px; text-align:center">
+		</td><td style="padding:10px">
+		<img src="img/arriba.svg" width="45px" onclick="mueveNumero('1')"/><br/><img src="img/abajo.svg" width="45px" onclick="mueveNumero('2')"/>
+		</td></tr></table>
+		<input type="hidden" id="datoproducto" name="datoproducto" value="0" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="liberaSearch()">Regresar</button>
+        <button type="button" class="btn btn-primary" onclick="agregarComida()">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <script type="text/javascript" src="cordova.js"></script>
+	<script>
+	$( document ).ready(function() {
+		//Carga Elementos
+		var i;
+		for (i = 0; i < productos.length; i++) {
+			var ul = document.getElementById("myUL");
+			var li = document.createElement("li");
+			li.innerHTML='<a href="#" onclick="abrirModal('+i+'); return false;"><img id="img'+i+'" src="" width="50px" /><span id="prod'+i+'"></span></a>';
+			ul.appendChild(li);
+			document.getElementById('img'+i).src = "img/"+window.imagenes[i];
+			document.getElementById('prod'+i).innerHTML = "&nbsp;&nbsp;"+window.productos[i];
+		}
+	})
+	</script>
+    
+</body>
+</html>
